@@ -13,8 +13,9 @@ class Restaurant {
     fun order(){
         print("Qual seu nome?")
         val clientName = readLine()
-        val serviceRate = (0..10).random()
-        val totalPrice = mutableListOf<Int>()
+        val serviceRate = Math.random()
+        val allOrdersPrice = mutableListOf<Int>()
+        var totalPrice: Int = 0
 
         do{
             print("Temos pizza e salgados, o que você deseja pedir?")
@@ -22,28 +23,33 @@ class Restaurant {
 
             when(clientOrder.lowercase()){
                 "pizza" -> {
-                    println("Massa Fina, média ou grossa?")
+                    print("Massa Fina, média ou grossa?")
                     val pasta = readLine()
-                    println("Recheio de Calabresa, Frango ou Camarão?")
+                    print("Recheio de Calabresa, Frango ou Camarão?")
                     val filling = readLine()
                     val pizza = Pizza(pasta.toString(), filling.toString())
 
-                    totalPrice.add(pizza.calculatePrice())
+                    allOrdersPrice.add(pizza.calculatePrice())
 
                 }
                 "salgado" -> {
-                    println("Massa Crocante ou Fofa?")
+                    print("Massa Crocante ou Fofa?")
                     val pasta = readLine()
-                    println("Recheio de Calabresa, Frango ou Camarão?")
+                    print("Recheio de Calabresa, Frango ou Camarão?")
                     val filling = readLine()
 
                     val salgado = Salgado(pasta.toString(), filling.toString())
-                    totalPrice.add(salgado.calculatePrice())
+                    allOrdersPrice.add(salgado.calculatePrice())
                 }
             }
-            println("Para continuar pedindo digite 1 e para parar digite 2")
+            print("Para continuar pedindo digite 1 e para parar digite 2: ")
             val getOut = readLine().toString()
         } while (getOut.lowercase() != "2")
-        
+
+        for(order in allOrdersPrice){
+            totalPrice = totalPrice + order
+        }
+
+        println("O total do seu pedido ficou R$${totalPrice * serviceRate} Reais")
     }
 }
